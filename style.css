@@ -1,0 +1,108 @@
+*{
+    background-color: #1b1818;
+}
+.chess-board {
+    border-spacing: 0;
+    width: 100%; /* Make the chess board take up the full width of its parent */
+    max-width: 400px;
+    border-collapse: collapse;
+    
+}
+
+
+.chess-board th {
+    text-align: center; /* Centers the text within the table cells */
+    vertical-align: middle;
+    padding: .5em;
+}
+
+.chess-board td {
+    border: 1px solid;
+    width: calc(4em); /* Reduce the width by 20% */
+    height: calc(4em);
+    text-align: center; /* Centers the text within the table cells */
+    vertical-align: middle;
+}
+
+.chess-board .light {
+    background: #a49b9b;
+}
+
+.chess-board .dark {
+    background: #4b0505;
+}
+.opacity-50 {
+    opacity: 0.2;
+  }
+/* Custom button styles */
+.btn-fit-td {
+    width: 100%;  /* Make the button take up the full width of the cell */
+    height: 100%; /* Make the button take up the full height of the cell */
+    padding: 0;   /* Remove padding */
+    margin: 0;    /* Remove margin */
+    border-radius: 0; /* Optional: Remove border radius */
+}
+
+.move-status {
+    /* Add some basic styling to the element */
+    background-color: #f0f0f0; /* Light gray background */
+    margin-top: 5%;
+    padding: 10px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a light gray border */
+    border-radius: 5px; /* Add a slight rounded corner */
+    font-size: 18px; /* Increase the font size */
+    font-weight: bold; /* Make the text bold */
+    text-align: center; /* Center the text horizontally */
+    max-height: 50px; /* Add a fixed height to the element */
+  overflow: hidden;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+  transform: translateY(0);
+  
+
+  transition: transform 0.3s ease-in-out;
+  }
+  .move-status:hover {
+    /* Add a hover effect with a slight translation */
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+  }
+  
+  
+
+
+
+@media screen and (max-width : 500px) {
+    .chess-board td {
+        /* Further reduce the width and height of the table cells on smaller screens */
+        width: calc(4em * 0.6); /* Reduce the width by 40% */
+        height: calc(4em * 0.6); /* Reduce the height by 40% */
+      }
+      .move-status{
+        margin-left: 5%;
+      }
+    
+    
+}
+@media screen and (max-width : 450px) {
+    
+    .move-status{
+      margin-left: 10%;
+    }
+  
+  
+}
+@media screen and (max-width : 400px) {
+    
+      .move-status{
+        margin-left: 18%;
+      }
+    
+    
+}
+@media screen and (max-width: 300px) {
+    .chess-board td {
+       /* Further reduce the width and height of the table cells on very small screens */
+       width: calc(4em * 0.4); /* Reduce the width by 60% */
+       height: calc(4em * 0.4); /* Reduce the height by 60% */
+     }
+   }
