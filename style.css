@@ -1,108 +1,241 @@
-*{
-    background-color: #1b1818;
+/* Container styling */
+.box-to-keep {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;  /* Added max-width */
+  margin: 0 auto;    /* Center the container */
 }
+
+/* Chess board styling */
 .chess-board {
-    border-spacing: 0;
-    width: 100%; /* Make the chess board take up the full width of its parent */
-    max-width: 400px;
-    border-collapse: collapse;
-    
+  width: 100%;
+  max-width: 640px;  /* Added max-width for the board */
+  border-collapse: collapse;
+  border: 2px solid #333;
+  aspect-ratio: 1;
+  margin: 0 auto;    /* Center the board */
 }
 
-
-.chess-board th {
-    text-align: center; /* Centers the text within the table cells */
-    vertical-align: middle;
-    padding: .5em;
+/* Chess board cell colors */
+.light {
+  background-color: #fff;
 }
 
+.dark {
+  background-color: #769656;
+}
+
+/* Cell sizing and styling */
 .chess-board td {
-    border: 1px solid;
-    width: calc(4em); /* Reduce the width by 20% */
-    height: calc(4em);
-    text-align: center; /* Centers the text within the table cells */
-    vertical-align: middle;
+  width: 12.5%;
+  position: relative;
+  padding: 0;
 }
 
-.chess-board .light {
-    background: #a49b9b;
+/* Make cells square using aspect ratio */
+.chess-board td:after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
 }
 
-.chess-board .dark {
-    background: #4b0505;
-}
-.opacity-50 {
-    opacity: 0.2;
-  }
-/* Custom button styles */
+/* Button styling within cells */
 .btn-fit-td {
-    width: 100%;  /* Make the button take up the full width of the cell */
-    height: 100%; /* Make the button take up the full height of the cell */
-    padding: 0;   /* Remove padding */
-    margin: 0;    /* Remove margin */
-    border-radius: 0; /* Optional: Remove border radius */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
 }
 
+/* Remove button outline on focus */
+.btn-fit-td:focus {
+  box-shadow: none;
+}
+
+/* Image styling within buttons */
+.btn-fit-td img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  padding: 5px;
+}
+
+/* Move status styling */
 .move-status {
-    /* Add some basic styling to the element */
-    background-color: #f0f0f0; /* Light gray background */
-    margin-top: 5%;
-    padding: 10px; /* Add some padding */
-    border: 1px solid #ddd; /* Add a light gray border */
-    border-radius: 5px; /* Add a slight rounded corner */
-    font-size: 18px; /* Increase the font size */
-    font-weight: bold; /* Make the text bold */
-    text-align: center; /* Center the text horizontally */
-    max-height: 50px; /* Add a fixed height to the element */
-  overflow: hidden;
-  box-shadow: 0 0 10px rgb(255, 255, 255);
-  transform: translateY(0);
-  
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
 
-  transition: transform 0.3s ease-in-out;
+/* Toast container positioning */
+.toast-container {
+  position: fixed;
+  top: 0rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  pointer-events: none;
+}
+
+/* Base toast styling */
+.toast {
+  background-color: white;
+  min-width: 300px;
+  max-width: 90vw;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: auto;
+  animation: slideIn 0.3s ease forwards;
+}
+
+/* Toast variants */
+.toast.success {
+  border-left: 4px solid #28a745;
+}
+
+.toast.success .toast-header {
+  background-color: #d4edda;
+  color: #155724;
+  border-bottom: 1px solid #c3e6cb;
+}
+
+.toast.error {
+  border-left: 4px solid #dc3545;
+}
+
+.toast.error .toast-header {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-bottom: 1px solid #f5c6cb;
+}
+
+.toast.info {
+  border-left: 4px solid #17a2b8;
+}
+
+.toast.info .toast-header {
+  background-color: #cce5ff;
+  color: #004085;
+  border-bottom: 1px solid #b8daff;
+}
+
+.toast.game-over {
+  border-left: 4px solid #ffc107;
+}
+
+.toast.game-over .toast-header {
+  background-color: #fff3cd;
+  color: #856404;
+  border-bottom: 1px solid #ffeeba;
+}
+
+/* Toast header styling */
+.toast-header {
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-weight: 500;
+}
+
+/* Toast body styling */
+.toast-body {
+  padding: 0.75rem 1rem;
+  color: #4a5568;
+}
+
+/* Close button styling */
+.toast .close {
+  padding: 0.5rem;
+  margin: -0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.toast .close:hover {
+  opacity: 1;
+}
+
+/* Animation keyframes */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  .move-status:hover {
-    /* Add a hover effect with a slight translation */
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgb(255, 255, 255);
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation for toast removal */
+.toast.hiding {
+  animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .box-to-keep {
+      padding: 10px;
   }
   
+  .move-status {
+      margin-top: 15px;
+      font-size: 1.2rem;
+  }
   
+  .btn-fit-td img {
+      width: 90%;
+      height: 90%;
+      padding: 3px;
+  }
 
-
-
-@media screen and (max-width : 500px) {
-    .chess-board td {
-        /* Further reduce the width and height of the table cells on smaller screens */
-        width: calc(4em * 0.6); /* Reduce the width by 40% */
-        height: calc(4em * 0.6); /* Reduce the height by 40% */
-      }
-      .move-status{
-        margin-left: 5%;
-      }
-    
-    
+  /* Ensure padding doesn't make content overflow on mobile */
+  .container {
+      padding-left: 10px;
+      padding-right: 10px;
+  }
 }
-@media screen and (max-width : 450px) {
-    
-    .move-status{
-      margin-left: 10%;
-    }
+
+/* Additional responsive safeguard for very small screens */
+@media (max-width: 480px) {
+  .box-to-keep {
+      padding: 5px;
+  }
   
-  
+  .chess-board {
+      border-width: 1px;
+  }
 }
-@media screen and (max-width : 400px) {
-    
-      .move-status{
-        margin-left: 18%;
-      }
-    
-    
-}
-@media screen and (max-width: 300px) {
-    .chess-board td {
-       /* Further reduce the width and height of the table cells on very small screens */
-       width: calc(4em * 0.4); /* Reduce the width by 60% */
-       height: calc(4em * 0.4); /* Reduce the height by 60% */
-     }
-   }

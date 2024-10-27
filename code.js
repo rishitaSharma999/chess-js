@@ -569,6 +569,45 @@ class HumanPlayer extends Player {
 }
 
 class Main {
+  showToast(message, type = 'info') {
+    const toast = document.getElementById('gameToast');
+    const toastMessage = document.getElementById('toastMessage');
+    const toastTitle = document.getElementById('toastTitle');
+    const toastIcon = document.getElementById('toastIcon');
+    
+    // Remove any existing classes
+    toast.classList.remove('success', 'error', 'info', 'game-over');
+    
+    // Set toast type and icon
+    switch(type) {
+      case 'success':
+        toast.classList.add('success');
+        toastIcon.textContent = '✅';
+        toastTitle.textContent = 'Success';
+        break;
+      case 'error':
+        toast.classList.add('error');
+        toastIcon.textContent = '❌';
+        toastTitle.textContent = 'Error';
+        break;
+      case 'game-over':
+        toast.classList.add('game-over');
+        toastIcon.textContent = '🏆';
+        toastTitle.textContent = 'Game Over';
+        break;
+      default:
+        toast.classList.add('info');
+        toastIcon.textContent = 'ℹ️';
+        toastTitle.textContent = 'Info';
+    }
+    
+    toastMessage.textContent = message;
+    
+    // Show the toast
+    const bsToast = new bootstrap.Toast(toast);
+    bsToast.show();
+  }
+
   displayBoard(game) {
     let spots = game.board.getBoxes();
 
@@ -628,7 +667,7 @@ class Main {
             buttonElement.appendChild(imgElement);
             //console.log(`Created new img element and appended to button`);
           }
-          imgElement.src = "./img/file.png";
+          imgElement.src = "./img/file.svg";
           
             //imgElement.style.opacity = "0.02"; // adjust the opacity value to your liking
           
@@ -706,7 +745,9 @@ class Main {
           game.getCurrentTurn() === player1 ? "1 (White)" : "2 (Black)"
         }, enter your move:`
       );
-
+      const currentPlayer = game.getCurrentTurn() === player1 ? "1 (White)" : "2 (Black)";
+      
+      this.showToast(`Player ${currentPlayer}'s turn`, 'info');
       moveStatusElement.textContent = `Player ${
         game.getCurrentTurn() === player1 ? "1 (White)" : "2 (Black)"
       }'s turn`;
@@ -735,9 +776,11 @@ class Main {
         endY
       );
       if (validMove) {
+        this.showToast(`Valid move by Player ${currentPlayer}!`, 'success');
         console.log("Valid move. Continuing to the next turn.");
         moveStatusElement.textContent = "Valid move!";
       } else {
+        this.showToast(`Invalid move! Try again, Player ${currentPlayer}.`, 'error');
         console.log("Invalid move. Try again.");
         moveStatusElement.textContent = "Invalid move! Try again.";
       }
@@ -747,6 +790,28 @@ class Main {
 
     ob.displayBoard(game);
     ob.updateBoard(game);
+    const gameResult = game.getStatus();
+    let resultMessage = "Game over! ";
+    
+    switch(gameResult) {
+      case GameStatus.WHITE_WIN:
+        resultMessage += "White player wins! 🎉";
+        break;
+      case GameStatus.BLACK_WIN:
+        resultMessage += "Black player wins! 🎉";
+        break;
+      case GameStatus.FORFEIT:
+        resultMessage += "Game forfeited!";
+        break;
+      case GameStatus.STALEMATE:
+        resultMessage += "Game ended in stalemate!";
+        break;
+      default:
+        resultMessage += gameResult;
+    }
+    
+    this.showToast(resultMessage, 'game-over');
+    moveStatusElement.textContent = resultMessage;
     console.log("Game over! Result: " + game.getStatus());
     moveStatusElement.textContent = "Game over! Result: " + game.getStatus();
   }
