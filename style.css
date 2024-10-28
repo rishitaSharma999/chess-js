@@ -58,6 +58,12 @@
 .btn-fit-td:focus {
   box-shadow: none;
 }
+/* Button hover effect */
+.btn-fit-td:hover {
+  background-color: rgba(61, 56, 56, 0.727); /* Subtle dark overlay */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  transition: background-color 0.4s ease; /* Smooth transition effect */
+}
 
 /* Image styling within buttons */
 .btn-fit-td img {
